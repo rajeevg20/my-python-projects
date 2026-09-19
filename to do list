@@ -1,0 +1,83 @@
+print("=" * 20)
+print("TO DO LIST".center(20))
+print("=" * 20)
+
+list1 = ["Add tasks", "View tasks", "complete task", "Delete task", "Exit"]
+list2 = [] #incomplete tasks list
+list3 = [] #completed task list
+
+def print_menu():
+    print("MENU:", end="-  ")
+    for index, task in enumerate(list1, start=1):
+        print(f"{index}.{task}", end="  |  ")
+    while True:
+        try:
+            a = int(input("enter your choice: "))
+            if a not in range(1, len(list1) + 1):
+                print(f"please enter a number between 1 to {len(list1)}")
+                continue
+            else:
+                break
+        except ValueError:
+            print(f"please enter a number between 1 to {len(list1)}")
+    return a
+
+def add_task():
+    list2.append(input("Add task: "))
+
+def view_tasks():
+    print("Incompleted Tasks:- ", end="")
+    for index, task in enumerate(list2, start=1):
+        print(f"{index}.{task}", end="  |  ")
+    print()
+    print("Completed Tasks:- ", end="")
+    for index, task in enumerate(list3, start=1):
+        print(f"{index}.{task}", end="  |  ")
+    print()
+
+def valid_task():
+        if list2:  # same as if len(list2) > 0
+            while True:
+                try:
+                    while True:
+                        z = int(input("which task to be completed/deleted?: "))
+                        if z not in range(1, len(list2) + 1):
+                            print(f"please enter a number between 1 to {len(list2)}")
+                        else:
+                            break
+                    break
+                except ValueError:
+                    print(f"please enter a number between 1 to {len(list2)}")
+            return z
+        else:
+            print("first add tasks", end="")
+
+
+def complete_task():
+    z = valid_task()
+    if z is None:
+        print()
+    else:
+        list3.append(list2[z - 1])
+        list2.remove(list2[z - 1])
+
+
+def delete_task():
+    z = valid_task()
+    if z is None:
+        print()
+    else:
+        list2.remove(list2[z - 1])
+
+while True:
+    a = print_menu()
+    if a == 1:
+        add_task()
+    elif a == 2:
+        view_tasks()
+    elif a == 3:
+        complete_task()
+    elif a == 4:
+        delete_task()
+    elif a == 5:
+        break
